@@ -11,12 +11,12 @@ import java.util.stream.Stream;
 
 @ToString
 @Getter
-public class InvestmentWallet extends Wallet{
+public class InvestmentWallet extends Wallet {
 
     private final Investment investment;
     private final AccountWallet account;
 
-    public InvestmentWallet(final Investment investment, final AccountWallet account, final long amount) {
+    public InvestmentWallet(final Investment investment, final AccountWallet account, final long amount){
         super(INVESTMENT);
         this.investment = investment;
         this.account = account;
@@ -29,5 +29,4 @@ public class InvestmentWallet extends Wallet{
         var money = Stream.generate(() -> new Money(history)).limit(amount).toList();
         this.money.addAll(money);
     }
-    
 }

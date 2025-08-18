@@ -21,5 +21,4 @@ public class Money {
     public void addHistory(final MoneyAudit history){
         this.history.add(history);
     }
-
 }

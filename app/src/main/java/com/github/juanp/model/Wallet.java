@@ -17,27 +17,27 @@ public abstract class Wallet {
 
     protected final List<Money> money;
 
-    public Wallet(final BankService service) {
+    public Wallet(final BankService service){
         this.service = service;
         this.money = new ArrayList<>();
     }
 
-    protected List<Money> generateMoney(final long amount, final String description) {
+    protected List<Money> generateMoney(final long amount, final String description){
         var history = new MoneyAudit(UUID.randomUUID(), service, description, OffsetDateTime.now());
         return Stream.generate(() -> new Money(history)).limit(amount).toList();
     }
 
-    public long getFunds() {
+    public long getFunds(){
         return money.size();
     }
     
-    public void addMoney(final List<Money> money, final BankService service, final String description) {
+    public void addMoney(final List<Money> money, final BankService service, final String description){
         var history = new MoneyAudit(UUID.randomUUID(), service, description, OffsetDateTime.now());
         money.forEach(m -> m.addHistory(history));
         this.money.addAll(money);
     }
 
-    public List<Money> reduceMoney(final long amount) {
+    public List<Money> reduceMoney(final long amount){
         List<Money> toRemove = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             toRemove.add(this.money.removeFirst());
@@ -48,5 +48,4 @@ public abstract class Wallet {
     public List<MoneyAudit> getFinancialTransactions(){
         return money.stream().flatMap(m -> m.getHistory().stream()).toList();
     }
-
 }
