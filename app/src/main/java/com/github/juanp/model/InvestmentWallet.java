@@ -3,13 +3,11 @@ package com.github.juanp.model;
 import static com.github.juanp.model.BankService.INVESTMENT;
 
 import lombok.Getter;
-import lombok.ToString;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-@ToString
 @Getter
 public class InvestmentWallet extends Wallet {
 
@@ -28,5 +26,12 @@ public class InvestmentWallet extends Wallet {
         var history = new MoneyAudit(UUID.randomUUID(), getService(), "Rendimentos", OffsetDateTime.now());
         var money = Stream.generate(() -> new Money(history)).limit(amount).toList();
         this.money.addAll(money);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + 
+               "InvestmentWallet(investment=" + investment +
+               ", account=" + account + ")";
     }
 }

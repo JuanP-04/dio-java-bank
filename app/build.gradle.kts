@@ -48,10 +48,14 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "dio.java.bank.App"
+    mainClass = "com.github.juanp.Main"
 }
 
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
 }

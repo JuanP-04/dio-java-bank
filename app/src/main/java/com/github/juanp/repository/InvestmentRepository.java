@@ -14,7 +14,7 @@ import com.github.juanp.model.InvestmentWallet;
 
 public class InvestmentRepository {
 
-    private long nextId;
+    private long nextId = 0;
     private final List<Investment> investments = new ArrayList<>();
     private final List<InvestmentWallet> wallets = new ArrayList<>();
     
@@ -25,11 +25,12 @@ public class InvestmentRepository {
         return investment;
     }
 
-    public InvestmentWallet initInvestment(final AccountWallet account, final String pix, final long id){
-
-        var accountInUse = wallets.stream().map(InvestmentWallet::getAccount).toList();
-        if(accountInUse.contains(account)) {
-            throw new AccountWithInvestmentException("A conta '" + account + "' já possui um investimento");
+    public InvestmentWallet initInvestment(final AccountWallet account, final long id){
+        if(!wallets.isEmpty()){
+            var accountInUse = wallets.stream().map(InvestmentWallet::getAccount).toList();
+            if(accountInUse.contains(account)) {
+                throw new AccountWithInvestmentException("A conta '" + account + "' já possui um investimento");
+            }
         }
         var investment = findById(id);
         checkFundsForTransaction(account, investment.initialFunds());
@@ -54,8 +55,8 @@ public class InvestmentRepository {
         return wallet;
     }
 
-    public void updateAmount(final long percent){
-        wallets.forEach(w -> w.updateAmount(percent));
+    public void updateAmount(){
+        wallets.forEach(w -> w.updateAmount(w.getInvestment().tax()));
     }
 
     public Investment findById(final long id){
