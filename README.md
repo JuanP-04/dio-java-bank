@@ -88,7 +88,7 @@ A escolha das estruturas de dados foi fundamental para a funcionalidade e efici�
 
 1.  Clone o repositório:
     ```bash
-    git clone https://github.com/JuanP-04/dio-java-bank.git)
+    git clone https://github.com/JuanP-04/dio-java-bank.git
     ```
 
 2.  Navegue até o diretório do projeto:
